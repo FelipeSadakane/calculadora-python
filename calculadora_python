@@ -43,8 +43,8 @@ while True:
     print("  ---- Histórico ----")
     if not historico:
       print("Nenhum cálculo encontrado.")
-    for resultado in historico:
-      print(resultado)
+    for operacao in historico:
+      print(operacao)
     continue
 
   if opcao == "0":
