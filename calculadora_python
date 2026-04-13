@@ -1,4 +1,9 @@
-print("***** Projeto calculadora ***** \n")
+historico = []
+
+def salvar(novo_calculo):
+  historico.append(novo_calculo)
+  if len(historico) > 7:
+    historico.pop(0)
 
 def soma(n1, n2):
   return n1 + n2
@@ -14,18 +19,32 @@ def div(n1, n2):
         return None
     return n1 / n2
 
+print("***** Projeto calculadora *****")
+
 while True:
-  print("\n Digite o número da operação desejada: \n")
-  print("1 - Soma")
-  print("2 - Subtração")
-  print("3 - Multiplicação")
-  print("4 - Divisão")
-  print("0 - Sair")
+  menu = """
+  \n Digite o número da operação desejada: \n
+ 1 - Soma
+ 2 - Subtração
+ 3 - Multiplicação
+ 4 - Divisão
+ 9 - Histórico de Resultados
+ 0 - Sair
+ """
+  print(menu)
 
-  opcao = input("\n Escolha: ")
+  opcao = input("\n Opção: ")
 
-  if opcao not in ["1", "2", "3", "4", "0"]:
-    print("!!!! Opção inválida !!!!")
+  if opcao not in ["1", "2", "3", "4", "9", "0"]:
+    print("  !!!! OPÇÃO INVÁLIDA !!!!     \n!!!! Digite outra opção !!!!")
+    continue
+
+  if opcao == "9":
+    print("  ---- Histórico ----")
+    if not historico:
+      print("Nenhum cálculo encontrado.")
+    for resultado in historico:
+      print(resultado)
     continue
 
   if opcao == "0":
@@ -41,12 +60,15 @@ while True:
 
   if opcao == "1":
     resultado = soma(n1, n2)
+    salvar(f"{n1} + {n2} = {resultado}")
 
   elif opcao == "2":
     resultado = sub(n1, n2)
+    salvar(f"{n1} - {n2} = {resultado}")
 
   elif opcao == "3":
     resultado = mult(n1, n2)
+    salvar(f"{n1} * {n2} = {resultado}")
 
   elif opcao == "4":
     resultado = None
@@ -54,5 +76,6 @@ while True:
         print("!!!! Não é possível dividir por zero !!!!")
         continue
     resultado = div(n1, n2)
+    salvar(f"{n1} / {n2} = {resultado}")
 
   print(f"-- Resultado: {resultado}")
